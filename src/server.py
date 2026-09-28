@@ -13,7 +13,7 @@ from mcp.server.fastmcp import Context, FastMCP
 
 ALTHIA_BASE_URL = "https://pxqdpteehqidgomixfre.supabase.co/functions/v1/debate-api/v1"
 
-mcp = FastMCP("althia-debate-api", stateless_http=True)
+mcp = FastMCP("althia-debate-api", host="0.0.0.0", port=8000, stateless_http=True)
 
 
 def _auth_headers(ctx: Context) -> dict:
@@ -111,4 +111,5 @@ async def get_findings(
     return await _get(ctx, f"/dossiers/{dossier_id}/findings", params)
 
 
-app = mcp.streamable_http_app()
+if __name__ == "__main__":
+    mcp.run(transport="streamable-http")
